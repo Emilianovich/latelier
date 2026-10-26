@@ -1,0 +1,26 @@
+{
+	"name": "@latelier/web",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vp dev --port 3987",
+		"build": "vp build",
+		"preview": "vp preview",
+		"start": "node .output/server/index.mjs",
+		"typecheck": "tsc --noEmit",
+		"test": "vp test run --passWithNoTests"
+	},
+	"dependencies": {
+		"@latelier/api-client": "workspace:*",
+		"@latelier/contracts": "workspace:*",
+		"@tanstack/react-router": "latest",
+		"@tanstack/react-start": "latest",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0"
+	},
+	"devDependencies": {
+		"@types/node": "^22.0.0",
+		"@types/react": "^19.0.0",
+		"@types/react-dom": "^19.0.0"
+	}
+}

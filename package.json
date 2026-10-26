@@ -1,0 +1,27 @@
+{
+	"name": "latelier",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "turbo run dev",
+		"build": "turbo run build",
+		"typecheck": "tsc --noEmit && turbo run typecheck",
+		"test": "turbo run test",
+		"lint": "vp lint",
+		"format": "vp fmt --check",
+		"format:fix": "vp fmt . --write",
+		"check": "pnpm format && pnpm lint && pnpm typecheck",
+		"prepare": "lefthook install",
+		"ci": "pnpm check && pnpm test && pnpm build"
+	},
+	"devDependencies": {
+		"lefthook": "^2.0.0",
+		"turbo": "^2.9.18",
+		"typescript": "^5.8.3",
+		"vite-plus": "^1.4.0"
+	},
+	"engines": {
+		"node": "^24.22.1"
+	},
+	"packageManager": "pnpm@11.9.0"
+}

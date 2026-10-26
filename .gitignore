@@ -1,0 +1,13 @@
+node_modules/
+.pnpm-store/
+.idea/
+.DS_Store
+.tanstack/
+dist/
+build/
+.output/
+.turbo/
+coverage/
+.env
+.env.*
+!.env.example
