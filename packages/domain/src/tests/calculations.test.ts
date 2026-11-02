@@ -34,7 +34,7 @@ describe("Calculate grade letter from grade", () => {
 		}
 	]
 	test.each(grades)(
-		`Grade $grades should equal $expectedLetter`,
+		`Grade $grade should equal $expectedLetter`,
 		({ grade, expectedLetter }) => {
 			expect(gradeToLetter(grade)).toBe(expectedLetter)
 		}
