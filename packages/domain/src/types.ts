@@ -1,0 +1,88 @@
+export type CourseBreakdownEntry = {
+	name?: string
+	rawScore: number
+	maxScore: number
+}
+
+export type CourseBreakdown = {
+	name: string
+	percentage: number
+	contribution: number
+	entries: CourseBreakdownEntry[]
+	allowsMultipleEntries: boolean
+}
+
+export type BaseCourseInstance = {
+	profesorName: string
+	finalGrade: number
+	breakdowns: CourseBreakdown[]
+}
+export type Laboratory = BaseCourseInstance & {
+	percentage: number
+}
+
+export type CourseInstance = BaseCourseInstance & {
+	laboratory?: Laboratory
+}
+
+export type Course = {
+	name: string
+	averageGrade: number
+	courseInstances: CourseInstance[]
+}
+
+export type ValidCollections =
+	| "users"
+	| "sessions"
+	| "academicPeriods"
+	| "courseInstances"
+	| "courses"
+	| "migrations"
+
+export type FontFamily =
+	| "Arima"
+	| "Amiko"
+	| "Playwrite VN"
+	| "Elsie"
+	| "Libertinus Math"
+	| "Nunito"
+	| "Gorditas"
+	| "Special Elite"
+	| "Short Stack"
+	| "Uncial Antiqua"
+	| "Saira Stencil"
+	| "Cherry Cream Soda"
+	| "Audiowide"
+	| "Cabin Sketch"
+	| "Chalkboard SE"
+	| "Fredoka"
+	| "Erzieherisch"
+
+export type AppTheme = "dark" | "light" | "high-contrast" | "sepia"
+
+export type PetName = "Spike" | "Leon" | "Tom" | "Nita" | "Mila"
+
+export type UserPreferences = {
+	fontFamily: FontFamily
+	theme: AppTheme
+	petName: PetName
+	disablePet: boolean
+}
+
+export type CurrentAcademicPeriod = {
+	name: string
+	startDate: Date
+	endDate: Date
+	courseInstances: CurrentAcademicPeriodSubjects[]
+	isActive: boolean
+}
+
+export type CurrentAcademicPeriodSubjects = {
+	id: string
+	name: string
+	grade: number
+}
+
+export type GradeLetter = "A" | "B" | "C" | "D" | "F"
+
+export type NonEmptyObject<T extends object> = keyof T extends never ? never : T
