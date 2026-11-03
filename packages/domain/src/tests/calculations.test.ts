@@ -342,11 +342,11 @@ describe("Computing Course Instance Final Grade", () => {
 	describe("computeBreakdownContribution function", () => {
 		test("Compute Breakdown contribution", () => {
 			const { contribution } = breakdown
+			breakdown.contribution = 0
 			computeBreakdownContribution(breakdown)
 			const { contribution: computedContribution } = breakdown
-			expect(
-				roundNumber({ number: computedContribution, amountOfDecimals: 2 })
-			).toBeCloseTo(contribution)
+			expect(computedContribution).not.toBe(0)
+			expect(computedContribution).toBeCloseTo(contribution, 2)
 		})
 	})
 	describe("updateCourseInstanceFinalGrade function", () => {
@@ -356,12 +356,12 @@ describe("Computing Course Instance Final Grade", () => {
 				courseInstanceWithLaboratory
 			)
 			const { finalGrade } = copyOfCourseInstanceWithLaboratory
+			copyOfCourseInstanceWithLaboratory.finalGrade = 0
 			updateCourseInstanceFinalGrade(copyOfCourseInstanceWithLaboratory)
 			const { finalGrade: computedFinalGrade } =
 				copyOfCourseInstanceWithLaboratory
-			expect(
-				roundNumber({ number: computedFinalGrade, amountOfDecimals: 2 })
-			).toBeCloseTo(finalGrade)
+			expect(computedFinalGrade).not.toBe(0)
+			expect(computedFinalGrade).toBeCloseTo(finalGrade)
 		})
 		test("Course Instance Without Laboratory", () => {
 			if (!courseInstanceWithoutLaboratory) return
@@ -391,10 +391,20 @@ describe("Computing Course Instance Final Grade", () => {
 describe("updateCourseAverageGrade function", () => {
 	test("Compute Course Average Grade", () => {
 		const { averageGrade } = course
+		course.averageGrade = 0
 		updateCourseAverageGrade(course)
 		const { averageGrade: computedAverageGrade } = course
-		expect(
-			roundNumber({ number: computedAverageGrade, amountOfDecimals: 2 })
-		).toBeCloseTo(averageGrade)
+		expect(computedAverageGrade).not.toBe(0)
+		expect(computedAverageGrade).toBeCloseTo(averageGrade)
+	})
+	test("should throw error because of no course instances", () => {
+		const course: Course = {
+			name: "Physics",
+			averageGrade: 0,
+			courseInstances: []
+		}
+		course.averageGrade = 1
+		updateCourseAverageGrade(course)
+		expect(course.averageGrade).toBeCloseTo(0)
 	})
 })

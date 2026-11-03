@@ -61,8 +61,9 @@ describe("Check if array is empty", () => {
 
 describe("Check object inequality", () => {
 	test("should not be object of equal reference", () => {
+		const copyUser = copyObject(user)
 		assert(
-			copyObject(user) !== user,
+			copyUser !== user && expect(copyUser).toEqual(user),
 			"user copy should not be equal to original user"
 		)
 	})

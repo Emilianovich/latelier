@@ -4,6 +4,7 @@ export const getWordPluralForm = (amount: number, word: string) => {
 	return amount !== 1 ? `${word}s` : word
 }
 export function getLastElementFromArray<T>(array: T[]) {
+	if (!array.length) throw new Error("Can't get element from an empty array")
 	return array[array.length - 1]
 }
 export function isArrayEmpty<T>(array: T[]) {

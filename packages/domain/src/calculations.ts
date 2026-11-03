@@ -36,6 +36,8 @@ export function getValueOver100({
 	rawScore: number
 	maxScore?: number
 }): number {
+	if (maxScore <= 0)
+		throw new RangeError("maxScore cannot be less or equal to zero")
 	return (rawScore / maxScore) * 100
 }
 
@@ -81,8 +83,8 @@ export function updateCourseInstanceFinalGrade(
 	}
 	courseInstance.breakdowns.forEach((breakdown) => {
 		computeBreakdownContribution(breakdown)
-		computeCourseInstanceFinalGrade(courseInstance)
 	})
+	computeCourseInstanceFinalGrade(courseInstance)
 	courseInstance.finalGrade += labContribution
 	courseInstance.finalGrade = roundNumber({
 		number: courseInstance.finalGrade,
@@ -95,6 +97,10 @@ export function updateCourseAverageGrade(course: Course): void {
 		updateCourseInstanceFinalGrade(instance)
 	})
 	const { courseInstances } = course
+	if (!courseInstances.length) {
+		course.averageGrade = 0
+		return
+	}
 	course.averageGrade = roundNumber({
 		number:
 			courseInstances

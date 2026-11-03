@@ -56,7 +56,7 @@ db.createCollection("users", {
 						},
 						theme: {
 							bsonType: "string",
-							enum: ["dark", "light"],
+							enum: ["dark", "light", "high-contrast", "sepia"],
 							description: "A valid theme is required ('dark', 'light')"
 						},
 						petName: {
@@ -71,7 +71,7 @@ db.createCollection("users", {
 		}
 	}
 })
-
+db.users.createIndex({ email: 1 }, { unique: true })
 db.createCollection("courses", {
 	validationLevel: "strict",
 	validationAction: "error",
