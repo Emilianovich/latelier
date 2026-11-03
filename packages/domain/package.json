@@ -7,6 +7,11 @@
 	},
 	"scripts": {
 		"typecheck": "tsc --noEmit",
-		"test": "vp test run --passWithNoTests"
+		"test": "vp test run --passWithNoTests",
+		"test:ui": "vitest --ui"
+	},
+	"devDependencies": {
+		"@vitest/ui": "^5.0.5",
+		"vitest": "^5.0.5"
 	}
 }

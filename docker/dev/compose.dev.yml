@@ -1,0 +1,31 @@
+name: notas-universitarias-dev
+services:
+  mongodb:
+    image: mongo:8
+    container_name: mongodb
+    ports:
+      - "127.0.0.1:27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_APP_DB: ${MONGO_APP_DB}
+      MONGO_APP_USER: ${MONGO_APP_USER}
+      MONGO_APP_PASSWORD: ${MONGO_APP_PASSWORD}
+    volumes:
+      - mongodb-data:/data/db
+      - ../db/init-code:/docker-entrypoint-initdb.d:ro
+    restart: unless-stopped
+
+  db-gui:
+    image: huggingface/mongoku
+    platform: linux/amd64
+    ports:
+      - "127.0.0.1:3100:3100"
+    environment:
+      - MONGOKU_DEFAULT_HOST=mongodb://${MONGO_ROOT_USER}:${MONGO_ROOT_PASSWORD}@mongodb:27017/?authSource=admin
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+volumes:
+  mongodb-data:
