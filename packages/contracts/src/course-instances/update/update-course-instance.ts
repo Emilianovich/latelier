@@ -1,9 +1,6 @@
 import { z } from "zod"
-import {
-	CreateBreakdownSchema,
-	isTotalPercentageValid,
-	PercentageSchema
-} from "../create/create-course-instances.ts"
+import { CreateBreakdownSchema, PercentageSchema } from "../create"
+import { isTotalPercentageValid } from "../create/utils.ts"
 
 const CourseBreakdownEntrySchema = z
 	.object({

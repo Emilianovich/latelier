@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { isTotalPercentageValid } from "./utils.ts"
 
 export const PercentageSchema = (addedStr: string) =>
 	z
@@ -25,37 +26,35 @@ export const CreateBreakdownSchema = z.object({
 	)
 })
 
-export const CreateCourseInstanceBaseSchema = z.object({
-	profesorName: z
-		.string()
-		.min(1, "El nombre del profesor debería tener por lo menos un caracter")
-		.max(100, "El nombre del profesor debería tener entre 1 a 100 caracteres"),
-	breakdowns: z.array(CreateBreakdownSchema)
-})
+export const CreateCourseInstanceBaseSchema = z
+	.object({
+		profesorName: z
+			.string()
+			.min(1, "El nombre del profesor debería tener por lo menos un caracter")
+			.max(
+				100,
+				"El nombre del profesor debería tener entre 1 a 100 caracteres"
+			),
+		breakdowns: z.array(CreateBreakdownSchema)
+	})
+	.superRefine((self, ctx) => {
+		if (!self.breakdowns.length) {
+			ctx.addIssue({
+				code: "custom",
+				message: "Tienes que agregar por lo menos una evaluación",
+				path: ["breakdowns"]
+			})
+		}
+	})
 
 const CreatingLaboratorySchema = CreateCourseInstanceBaseSchema.safeExtend({
 	percentage: PercentageSchema("El porcentaje de laboratorio")
 })
 
-type CreateBreakdownSchemaType = z.infer<typeof CreateBreakdownSchema>
+export type CreateBreakdownSchemaType = z.infer<typeof CreateBreakdownSchema>
 export type CreatingLaboratorySchemaType = z.infer<
 	typeof CreatingLaboratorySchema
 >
-
-export const isTotalPercentageValid = (
-	breakdowns: CreateBreakdownSchemaType[],
-	laboratory: CreatingLaboratorySchemaType | undefined
-): boolean => {
-	let totalLabPercentage = 0
-	if (laboratory) {
-		totalLabPercentage = laboratory.percentage
-	}
-	const totalBreakdownPercentage = breakdowns
-		.map((breakdown) => breakdown.percentage)
-		.reduce((total, currentPercent) => total + currentPercent, 0)
-	const totalPercentage = totalBreakdownPercentage + totalLabPercentage
-	return Math.abs(totalPercentage - 1) <= 0.001
-}
 
 export const CreateCourseInstanceSchema = z
 	.object({

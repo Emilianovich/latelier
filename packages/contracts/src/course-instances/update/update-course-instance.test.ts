@@ -279,7 +279,7 @@ const testCases = [
 	}
 ]
 
-describe.only("Update Course Instance Schema", () => {
+describe("Update Course Instance Schema", () => {
 	test.each(testCases)("$description", ({ fixture, expected }) => {
 		const { success } = UpdateCourseInstanceSchema.safeParse(fixture)
 		expect(success).toBe(expected)

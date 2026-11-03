@@ -10,6 +10,15 @@ const validBreakdown = {
 	allowsMultipleEntries: false
 }
 
+const validBreakdownWithLaboratory = {
+	...validBreakdown,
+	percentage: 70
+}
+const validLaboratory = {
+	name: "Laboratorio",
+	percentage: 70,
+	breakdowns: [validBreakdown]
+}
 const baseCourseInstance: CreateCourseInstanceSchemaType = {
 	isRegistered: false,
 	name: "Programación I",
@@ -39,7 +48,6 @@ const testCases = [
 		description: "3. Rejects previousCourseId when isRegistered is false",
 		fixture: {
 			...baseCourseInstance,
-			name: undefined,
 			previousCourseId: "course-002"
 		},
 		expected: false
@@ -142,7 +150,7 @@ const testCases = [
 			],
 			laboratory: {
 				profesorName: "Laura Castillo",
-				percentage: 30,
+				percentage: 20,
 				breakdowns: [validBreakdown]
 			}
 		},
@@ -169,6 +177,17 @@ const testCases = [
 			...baseCourseInstance,
 			hasLaboratory: false,
 			breakdowns: []
+		},
+		expected: false
+	},
+	{
+		description:
+			"14. Rejects schema with empty array of breakdowns for laboratory",
+		fixture: {
+			...baseCourseInstance,
+			laboratory: validLaboratory,
+			hasLaboratory: true,
+			breakdowns: [validBreakdownWithLaboratory]
 		},
 		expected: false
 	}
