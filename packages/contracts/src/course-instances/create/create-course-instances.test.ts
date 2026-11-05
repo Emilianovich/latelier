@@ -3,6 +3,7 @@ import {
 	CreateCourseInstanceSchema,
 	CreateCourseInstanceSchemaType
 } from "./create-course-instances.ts"
+import { validateSchema } from "../../utils.ts"
 
 const validBreakdown = {
 	name: "Examen final",
@@ -194,7 +195,6 @@ const testCases = [
 ]
 describe("Create Course Instance Schema", () => {
 	test.each(testCases)("$description", ({ fixture, expected }) => {
-		const { success } = CreateCourseInstanceSchema.safeParse(fixture)
-		expect(success).toBe(expected)
+		expect(validateSchema(CreateCourseInstanceSchema, fixture)).toBe(expected)
 	})
 })

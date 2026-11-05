@@ -3,6 +3,7 @@ import {
 	UpdateCourseInstanceSchema
 } from "./update-course-instance.ts"
 import { describe, expect, test } from "vitest"
+import { validateSchema } from "../../utils.ts"
 
 const validBreakdown: CourseBreakdownSchemaType = {
 	name: "Final Exam",
@@ -281,7 +282,6 @@ const testCases = [
 
 describe("Update Course Instance Schema", () => {
 	test.each(testCases)("$description", ({ fixture, expected }) => {
-		const { success } = UpdateCourseInstanceSchema.safeParse(fixture)
-		expect(success).toBe(expected)
+		expect(validateSchema(UpdateCourseInstanceSchema, fixture)).toBe(expected)
 	})
 })
