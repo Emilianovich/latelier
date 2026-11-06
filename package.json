@@ -7,6 +7,7 @@
 		"build": "turbo run build",
 		"typecheck": "tsc --noEmit && turbo run typecheck",
 		"test": "turbo run test",
+		"test:ui": "vitest --ui",
 		"lint": "vp lint",
 		"format": "vp fmt --check",
 		"format:fix": "vp fmt . --write",
@@ -15,10 +16,12 @@
 		"ci": "pnpm check && pnpm test && pnpm build"
 	},
 	"devDependencies": {
+		"@vitest/ui": "^5.0.5",
 		"lefthook": "^2.0.0",
 		"turbo": "^2.9.18",
 		"typescript": "^5.8.3",
-		"vite-plus": "^1.4.0"
+		"vite-plus": "^1.4.0",
+		"vitest": "^5.0.5"
 	},
 	"engines": {
 		"node": "^24.22.1"
