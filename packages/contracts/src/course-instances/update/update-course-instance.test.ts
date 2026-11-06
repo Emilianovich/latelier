@@ -277,6 +277,15 @@ const testCases = [
 				}
 			]
 		}
+	},
+	{
+		description: "15. Rejects a schema with an unknown property",
+		expected: false,
+		fixture: {
+			profesorName: "Ana Rodríguez",
+			breakdowns: [validBreakdown],
+			unknownKey: "Blaze"
+		}
 	}
 ]
 

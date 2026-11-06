@@ -71,21 +71,23 @@ const LaboratorySchema = CourseInstanceBaseSchema.safeExtend({
 
 export const UpdateCourseInstanceSchema = CourseInstanceBaseSchema.safeExtend({
 	laboratory: LaboratorySchema.optional()
-}).superRefine((self, ctx) => {
-	const { profesorName, laboratory, breakdowns } = self
-	if (!profesorName && !breakdowns && !laboratory) {
-		ctx.addIssue({
-			code: "custom",
-			message: "No se puede enviar un objeto de actualización vacío"
-		})
-	}
-	if (!isTotalPercentageValid(breakdowns, laboratory)) {
-		ctx.addIssue({
-			code: "custom",
-			message: "El total de porcentajes tiene que ser igual a 100%"
-		})
-	}
 })
+	.superRefine((self, ctx) => {
+		const { profesorName, laboratory, breakdowns } = self
+		if (!profesorName && !breakdowns && !laboratory) {
+			ctx.addIssue({
+				code: "custom",
+				message: "No se puede enviar un objeto de actualización vacío"
+			})
+		}
+		if (!isTotalPercentageValid(breakdowns, laboratory)) {
+			ctx.addIssue({
+				code: "custom",
+				message: "El total de porcentajes tiene que ser igual a 100%"
+			})
+		}
+	})
+	.strict()
 export type UpdateCourseInstanceSchemaType = z.infer<
 	typeof UpdateCourseInstanceSchema
 >

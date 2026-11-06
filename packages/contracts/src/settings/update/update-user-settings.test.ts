@@ -1,14 +1,9 @@
 import {
 	UpdateUserPreferencesSchema,
-	UpdateUserPreferencesSchemaType
+	validUpdateDto
 } from "./update-user-settings.ts"
 import { describe, expect, test } from "vitest"
-import { validateSchema, validDto } from "../../utils.ts"
-
-const validUpdateDto: UpdateUserPreferencesSchemaType = {
-	...validDto,
-	disablePet: true
-}
+import { validateSchema } from "../../utils.ts"
 
 describe("Update User Preferences Schema", () => {
 	test("should accept a valid dto", () => {

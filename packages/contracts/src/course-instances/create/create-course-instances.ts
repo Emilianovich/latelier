@@ -57,7 +57,7 @@ export type CreatingLaboratorySchemaType = z.infer<
 >
 
 export const CreateCourseInstanceSchema = z
-	.object({
+	.strictObject({
 		isRegistered: z.boolean(
 			"Es necesario especificar si ya tiene la materia registrada"
 		),

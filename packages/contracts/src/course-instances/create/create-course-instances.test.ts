@@ -191,6 +191,14 @@ const testCases = [
 			breakdowns: [validBreakdownWithLaboratory]
 		},
 		expected: false
+	},
+	{
+		description: "15. Rejects schema with an unknown property",
+		fixture: {
+			...baseCourseInstance,
+			unknownKey: "Blaze"
+		},
+		expected: false
 	}
 ]
 describe("Create Course Instance Schema", () => {
