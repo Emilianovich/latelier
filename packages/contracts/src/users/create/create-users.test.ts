@@ -4,7 +4,7 @@ import { validateSchema } from "../../utils.ts"
 
 describe("CreateUserSchema", () => {
 	test("should pass for valid dto", () => {
-		expect(validateSchema(CreateUserSchema, validDto)).toBe(true)
+		expect(validateSchema(CreateUserSchema, validDto)).toBeTruthy()
 	})
 	test("should fail for empty username", () => {
 		expect(
@@ -12,7 +12,7 @@ describe("CreateUserSchema", () => {
 				...validDto,
 				username: ""
 			})
-		)
+		).toBeFalsy()
 	})
 	test("should fail for username above 100 characters", () => {
 		expect(
@@ -20,7 +20,7 @@ describe("CreateUserSchema", () => {
 				...validDto,
 				username: "a".repeat(101)
 			})
-		)
+		).toBeFalsy()
 	})
 	test("should fail for empty password", () => {
 		expect(
@@ -28,7 +28,7 @@ describe("CreateUserSchema", () => {
 				...validDto,
 				password: ""
 			})
-		)
+		).toBeFalsy()
 	})
 	test("should fail when unknown key is present", () => {
 		expect(
@@ -36,6 +36,6 @@ describe("CreateUserSchema", () => {
 				...validDto,
 				unknowKey: "my-key"
 			})
-		)
+		).toBeFalsy()
 	})
 })
