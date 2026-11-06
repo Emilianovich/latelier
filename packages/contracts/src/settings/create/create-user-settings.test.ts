@@ -1,8 +1,5 @@
 import { describe, expect, test } from "vitest"
-import {
-	CreateUserPreferencesSchema,
-	CreateUserPreferencesSchemaType
-} from "./create-user-settings.ts"
+import { CreateUserPreferencesSchema } from "./create-user-settings.ts"
 import { validateSchema, validDto } from "../../utils.ts"
 
 describe("Create User Preferences Schema", () => {
