@@ -3,13 +3,7 @@ import {
 	CreateUserPreferencesSchema,
 	CreateUserPreferencesSchemaType
 } from "./create-user-settings.ts"
-import { validateSchema } from "../../utils.ts"
-
-export const validDto: CreateUserPreferencesSchemaType = {
-	fontFamily: "Arima",
-	petName: "Spike",
-	theme: "dark"
-}
+import { validateSchema, validDto } from "../../utils.ts"
 
 describe("Create User Preferences Schema", () => {
 	test("should accept a valid schema", () => {

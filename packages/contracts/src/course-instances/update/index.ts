@@ -1,1 +1,1 @@
-export * from "./update-course-instance"
+export * from "./update-course-instance.ts"

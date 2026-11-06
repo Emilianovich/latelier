@@ -2,9 +2,8 @@ import {
 	UpdateUserPreferencesSchema,
 	UpdateUserPreferencesSchemaType
 } from "./update-user-settings.ts"
-import { validDto } from "../create/create-user-settings.test.ts"
 import { describe, expect, test } from "vitest"
-import { validateSchema } from "../../utils.ts"
+import { validateSchema, validDto } from "../../utils.ts"
 
 const validUpdateDto: UpdateUserPreferencesSchemaType = {
 	...validDto,
